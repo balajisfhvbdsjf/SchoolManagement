@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Principal Dashboard";
+}
+
+@section Scripts {
+    <!-- Include SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const token = sessionStorage.getItem("jwt");
+
+            if (!token) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Unauthorized",
+                    text: "Please login first to access the dashboard."
+                }).then(() => {
+                    window.location.href = "/Principal/Login";
+                });
+            }
+        });
+    </script>
+}
+
+<h2 class="text-center mt-4 mb-4">Welcome to Principal Dashboard</h2>
+
+<div class="row text-center">
+    <!-- Total Teachers -->
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title text-muted">Total Teachers</h5>
+                <h3 class="fw-bold">12</h3> <!-- Replace with dynamic count -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Students -->
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title text-muted">Total Students</h5>
+                <h3 class="fw-bold">150</h3> <!-- Replace with dynamic count -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Classes Running -->
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title text-muted">Classes Running</h5>
+                <h3 class="fw-bold">8</h3> <!-- Replace with dynamic count -->
+            </div>
+        </div>
+    </div>
+</div>

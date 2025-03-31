@@ -1,0 +1,53 @@
+﻿@model School.Application.DTOs.LoginDto
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            $('#loginForm').submit(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: '/Principal/Login',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function (res) {
+                        // ✅ Store token and principal info in sessionStorage
+                        sessionStorage.setItem("jwt", res.token);
+                        sessionStorage.setItem("principalName", res.name);
+                        sessionStorage.setItem("principalPhoto", res.photo);
+
+                        Swal.fire("Success", "Logged in!", "success").then(() => {
+                            window.location.href = "/Principal/Dashboard";
+                        });
+                    },
+                    error: function () {
+                        Swal.fire("Error", "Invalid credentials", "error");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<h2 class="text-center mb-4">Principal Login</h2>
+
+<div class="card shadow-lg p-4 mx-auto" style="max-width: 500px;">
+    <form id="loginForm">
+        <div class="mb-3">
+            <label>Email</label>
+            <input asp-for="Email" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <input asp-for="Password" type="password" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+
+    <!-- ✅ Add Register Link -->
+    <div class="text-center mt-3">
+        <p class="mb-0">Don't have an account?</p>
+        <a href="/Principal/Register" class="btn btn-link">Register</a>
+    </div>
+</div>

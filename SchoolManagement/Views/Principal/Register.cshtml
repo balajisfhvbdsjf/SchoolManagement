@@ -1,0 +1,121 @@
+﻿@model School.Application.DTOs.PrincipalDto
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#registerForm').submit(function (e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '@Url.Action("Register", "Principal")',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function () {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Registered!',
+                            text: 'Principal registered successfully.'
+                        }).then(() => {
+                            // ✅ Redirect to Login Page
+                            window.location.href = '/Principal/Login';
+                        });
+                    },
+                    error: function (xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: xhr.responseText || 'Something went wrong during registration.'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<h2 class="text-center mb-4">Register Principal</h2>
+
+<div class="card shadow-lg p-4 mx-auto" style="max-width: 600px; animation: fadeIn 0.8s ease-in-out;">
+    <form id="registerForm" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label">Full Name</label>
+            <input asp-for="FullName" class="form-control" placeholder="Full Name" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input asp-for="Email" class="form-control" placeholder="Email" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            <input asp-for="PhoneNumber" class="form-control" placeholder="Phone Number" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Gender</label>
+            <select asp-for="Gender" class="form-select">
+                <option value="">-- Select --</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Date of Birth</label>
+            <input asp-for="DateOfBirth" type="date" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Upload Photo</label>
+            <input asp-for="Photo" type="file" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Register</button>
+    </form>
+
+    <!-- ✅ Bottom Login Link -->
+    <div class="text-center mt-3">
+        <p class="mb-0">Already have an account?</p>
+        <a href="/Principal/Login" class="btn btn-link">Login</a>
+    </div>
+</div>
+
+<style>
+    <text >
+    @@keyframes fadeIn {
+        from
+
+    {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    }
+
+    body {
+        background: linear-gradient(to right, #f1f2f6, #dff9fb);
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    </text >
+</style>

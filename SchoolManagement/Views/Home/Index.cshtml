@@ -1,0 +1,13 @@
+﻿@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            const token = sessionStorage.getItem("jwt");
+            if (!token) {
+                Swal.fire("Access Denied", "Please login first", "warning").then(() => {
+                    window.location.href = "/Principal/Login";
+                });
+            }
+        });
+    </script>
+}
